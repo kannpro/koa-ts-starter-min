@@ -1,11 +1,11 @@
-import Koa from 'koa2';
+import Koa from 'koa';
 import cors from '@koa/cors';
 import { useLogger } from './utils/logger';
-import bodyparser from 'koa-bodyparser';
 import koaLogger from 'koa-logger';
 import v1Router from './router/v1';
 import { noCache } from './middlewares';
 import { AppConfig } from './config';
+import { WrapCtx } from './context';
 
 const logger = useLogger();
 
@@ -14,6 +14,7 @@ export const startApp = (cfg: AppConfig) => {
   let router = v1Router();
 
   app
+    .use(WrapCtx)
     .use(cors())
     .use(noCache)
     .use(
@@ -21,7 +22,6 @@ export const startApp = (cfg: AppConfig) => {
         logger.info(str);
       })
     )
-    .use(bodyparser())
     .use(router.routes())
     .use(router.allowedMethods());
 

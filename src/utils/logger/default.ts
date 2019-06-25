@@ -4,15 +4,15 @@ export class DefaultLogger {
     this.verbose = verbose === true;
   }
 
-  error = (...args) => {
+  error = (...args: any) => {
     console.error(...args);
   };
 
-  info = (...args) => {
+  info = (...args: any) => {
     console.log(...args);
   };
 
-  debug = (...args) => {
+  debug = (...args: any) => {
     if (this.verbose) {
       console.log(...args);
     }

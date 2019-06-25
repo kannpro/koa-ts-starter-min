@@ -1,13 +1,12 @@
 import Router from '@koa/router';
-import ctxWrapper from '../middlewares/ctxWrapper';
+import { KoaCtx } from '../context';
 
 const newRouterV1 = () => {
   let r = new Router({
     prefix: '/api/v1'
   });
 
-  r.get('/ping', async rawCtx => {
-    let ctx = ctxWrapper(rawCtx);
+  r.get('/ping', async (ctx: KoaCtx) => {
     ctx.ok('pong');
   });
 
